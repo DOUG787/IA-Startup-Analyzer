@@ -1,0 +1,22 @@
+import streamlit as st
+from agent import analyze_startup
+
+st.set_page_config(page_title="IA Startup Analyzer", layout="centered")
+
+st.title("🚀 IA Startup Analyzer")
+st.markdown("""
+Insira a descrição da sua startup e veja como ela se sai em uma avaliação automatizada baseada em critérios de inovação, mercado e escalabilidade.
+""")
+
+description = st.text_area("📝 Descrição da Startup", height=200)
+
+if st.button("Analisar"):
+    if description.strip():
+        with st.spinner("Analisando..."):
+            result = analyze_startup(description)
+            st.success("Análise concluída!")
+            st.subheader("📊 Resultados:")
+            for key, value in result.items():
+                st.markdown(f"**{key}:** {value}")
+    else:
+        st.warning("Por favor, insira uma descrição.")
